@@ -24,4 +24,7 @@ Functionality:
 - time sync with NTP server
 - setting for NTP server address
 - timezone setup [Olson format](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones), ex. **Europe/Prague** 
+- save timezone,ntp server in json to SPIFS
+- SET button to reset all settings and restart
+
 
