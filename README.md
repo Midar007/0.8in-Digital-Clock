@@ -31,7 +31,7 @@ Functionality:
 - TM1650 : SCL go to GPIO12, SDA to GPIO13. Read datasheet as this is not standard I2C
 - DS1302 : CE to GPIO5, I/O to GPIO14, SCLK to GPIO16 - will not use
 - button SET - go to GPIO0 with pull-up resistor
-- button UP - go to GPI4, there is no resistor, wil luse internal
+- button UP - go to GPI4, there is no resistor, will use internal (*dont ask me why each button have different wiring*)
 - button DOWN - go to GPIO15 with pull down resistor
 - red LED connected to GPIO2
 
