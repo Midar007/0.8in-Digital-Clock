@@ -36,3 +36,10 @@ Functionality:
 - button DOWN - go to GPIO15 with pull down resistor
 - red LED connected to GPIO2
 
+# toDo
+- nothing now
+
+# special thanks
+Special thanks to all who created libraries necessary for my project.
+
+
