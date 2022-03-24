@@ -36,8 +36,13 @@ Functionality:
 - button DOWN - go to GPIO15 with pull down resistor
 - red LED connected to GPIO2
 
+# How to install
+1. Use ESP flasher and bin file from repository. Restart then module will display "AP" and look for "Wifi Clock" network, connect (192.168.4.1) and follow wifi setup with NTP server and timezome ![wifi manager](https://github.com/Midar007/0.8in-Digital-Clock/blob/main/images/clock_wifimanager.jpg)
+2. Create new project in Arduino, download libraries, update TM16xx font file, select generic ESP8266 with 1M and compile
+
 # toDo
-- nothing now
+- bug fixies, if any
+- design 3D printed case
 
 # special thanks
 Special thanks to all who created libraries necessary for my project.
