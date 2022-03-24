@@ -3,7 +3,7 @@
 There is a 0.8inch clock, designed with ESP8266 on Aliexpress 
 - [Aliexpress link1](https://www.aliexpress.com/item/1005003163124952.html)
 - [Aliexpress link2](https://www.aliexpress.com/item/1005003167288799.html)
-![0.8inch clock](clocl.front.jpg)
+![0.8inch clock](https://github.com/Midar007/0.8in-Digital-Clock/blob/main/images/clock_front.jpg)
 
 Hardware:
 - 0.8inch white 7 segment display with clock semi dots
