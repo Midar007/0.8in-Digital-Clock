@@ -39,7 +39,8 @@ Functionality:
 
 # How to install
 1. Use ESP flasher and bin file from repository. Restart then module will display "AP" and look for "Wifi Clock" network, connect (192.168.4.1) and follow wifi setup with NTP server and timezome ![wifi manager](https://github.com/Midar007/0.8in-Digital-Clock/blob/main/images/clock_wifimanager.jpg)
-2. Create new project in Arduino, download libraries, update TM16xx font file, select generic ESP8266 with 1M and compile
+2. Create new project in Arduino, download libraries, update TM16xx font file in library, select generic ESP8266 with 1M and compile
+*Segments are not defined as standard in TM16xx library so you have to replace FONT file in library otherwise you will see garbage on display*
 
 # toDo
 - bug fixies, if any
