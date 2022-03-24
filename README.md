@@ -13,7 +13,7 @@ Hardware:
 
 Software:
 - wifiManager [https://github.com/tzapu/WiFiManager](https://github.com/tzapu/WiFiManager)
-- TM1650 display driver [https://github.com/arkhipenko/TM1650](https://github.com/arkhipenko/TM1650)
+- TM1650 display driver [https://github.com/maxint-rd/TM16xx](https://github.com/maxint-rd/TM16xx)
 - ezTime library [https://github.com/ropg/ezTime](https://github.com/ropg/ezTime)
 
 # Idea
@@ -27,4 +27,11 @@ Functionality:
 - save timezone,ntp server in json to SPIFS
 - SET button to reset all settings and restart
 
+# Module circuit wiring
+- TM1650 : SCL go to GPIO12, SDA to GPIO13. Read datasheet as this is not standard I2C
+- DS1302 : CE to GPIO5, I/O to GPIO14, SCLK to GPIO16 - will not use
+- button SET - go to GPIO0 with pull-up resistor
+- button UP - go to GPI4, there is no resistor, wil luse internal
+- button DOWN - go to GPIO15 with pull down resistor
+- red LED connected to GPIO2
 
