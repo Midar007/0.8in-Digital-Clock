@@ -16,6 +16,7 @@ Software:
 - wifiManager [https://github.com/tzapu/WiFiManager](https://github.com/tzapu/WiFiManager)
 - TM1650 display driver [https://github.com/maxint-rd/TM16xx](https://github.com/maxint-rd/TM16xx)
 - ezTime library [https://github.com/ropg/ezTime](https://github.com/ropg/ezTime)
+- arduinojson [https://github.com/bblanchon/ArduinoJson](https://github.com/bblanchon/ArduinoJson)
 
 # Idea
 The module have ESP8266 wifi chip, TM1650 driver for LED. For precise clock there is no need more. Connect to wifi, use NTP to get precise clock. 
