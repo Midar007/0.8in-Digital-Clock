@@ -3,8 +3,9 @@
   March 2022
   
 */
-#include <FS.h>                             // this needs to be first, or it all crashes and burns...
+#include <FS.h>               //this needs to be first, or it all crashes and burns...
 #include <TM1650.h>
+#include "myTM1650Fonts.h"    // need modified fonts
 #undef max
 #undef min
 #include <ezTime.h>
@@ -18,11 +19,11 @@
 #define BUTT_SET 0
 
 // define display
-TM1650 module(13, 12);                      // data, clock, 4 digits
+TM1650 module(13, 12);    // data, clock, 4 digits
 
 int brightness=4; 
 unsigned long myTime;
-char set_ntp[40] = "pool.ntp.org";
+char set_ntp[40] = "pool.ntp.org";          //in czech can use tik.cesnet.cz , generic is pool.ntp.org
 char my_timezone[40] = "Europe/Prague";     //corresponding to GMT+1
 bool tiktak = false;
 bool format12h = false;
@@ -52,7 +53,7 @@ void setup() {
     pinMode(BUTT_SET, INPUT);         // PCB have pull DOWN, it is GPIO0
     
     module.clearDisplay();
-    module.setDisplayToString("AP  "); // display AP string 
+    module.setDisplayToString("AP  ", 0, 0, myTM16XX_FONT_DEFAULT); // display AP string 
 
     // init file system
     bool result = SPIFFS.begin();
@@ -67,7 +68,7 @@ void setup() {
     WiFiManagerParameter cust_tz("TZClientId", "Timezone name (<a href=\"https://en.wikipedia.org/wiki/List_of_tz_database_time_zones\" target=\"_blank\">Olson format</a>)", my_timezone, 40);
     
     const char _custCheckbox[] = "type=\"checkbox\"";
-    WiFiManagerParameter cust_12h("Form12hId", "checkbox_12h", "T", 2, _custCheckbox, WFM_LABEL_AFTER );
+    WiFiManagerParameter cust_12h("Form12hId", "12hour time format", "T", 2, _custCheckbox, WFM_LABEL_AFTER );
 
     wifiManager.addParameter(&custom_html);
     wifiManager.addParameter(&cust_ntp);
@@ -107,7 +108,7 @@ void setup() {
       //end save
     }
     
-    module.setDisplayToString("SET  "); // display AP string  
+    module.setDisplayToString("SET  ", 0, 0, myTM16XX_FONT_DEFAULT); // display AP string  
 
     //read configuration from FS json
     //read always as there should be autoconnect
@@ -180,34 +181,34 @@ void loop() {
     tiktak = !tiktak;
     my_hour = (format12h) ? hourFormat12(t) : hour(t);
     if( my_hour > 9) { 
-      module.setDisplayDigit(my_hour/10, 0);
-      module.setDisplayDigit(my_hour%10, 1, tiktak);
+      module.setDisplayDigit(my_hour/10, 0, false, myTM16XX_NUMBER_FONT);
+      module.setDisplayDigit(my_hour%10, 1, tiktak, myTM16XX_NUMBER_FONT);
     } else {
       module.clearDisplayDigit(0, false);
-      module.setDisplayDigit(my_hour%10, 1, tiktak);
+      module.setDisplayDigit(my_hour%10, 1, tiktak, myTM16XX_NUMBER_FONT);
     }
     // shouw minutes
-    module.setDisplayDigit(minute(t)/10,2);
-    module.setDisplayDigit(minute(t)%10,3);
+    module.setDisplayDigit(minute(t)/10,2, false, myTM16XX_NUMBER_FONT);
+    module.setDisplayDigit(minute(t)%10,3, false, myTM16XX_NUMBER_FONT);
 
     if (digitalRead(BUTT_DOWN) == HIGH) {
       module.clearDisplay();
-      module.setDisplayToString("b   "); 
+      module.setDisplayToString("b   ", 0, 0, myTM16XX_FONT_DEFAULT); 
       while (digitalRead(BUTT_DOWN) == HIGH) {
         brightness = max(brightness-1 , 0);
         module.setupDisplay(true, brightness);  
-        module.setDisplayDigit(brightness, 3); 
+        module.setDisplayDigit(brightness, 3, false, myTM16XX_NUMBER_FONT); 
         Serial.printf("Brightness down %u \n", brightness );
         delay(500);
       }
     }
     if (digitalRead(BUTT_UP) == LOW) {
       module.clearDisplay();
-      module.setDisplayToString("b   "); 
+      module.setDisplayToString("b   ", 0, 0, myTM16XX_FONT_DEFAULT); 
       while (digitalRead(BUTT_UP) == LOW) {
         brightness = min(brightness+1 , 7);
         module.setupDisplay(true, brightness);  
-        module.setDisplayDigit(brightness, 3); 
+        module.setDisplayDigit(brightness, 3, false, myTM16XX_NUMBER_FONT); 
         Serial.printf("Brightness down %u \n", brightness );
         delay(500);
       }
@@ -215,12 +216,12 @@ void loop() {
     if (digitalRead(BUTT_SET) == LOW) {
       // SET button pressed, reset wifiManager and restart
       module.clearDisplay();
-      module.setDisplayToString("    " ); 
+      module.setDisplayToString("    ", 0, 0, myTM16XX_FONT_DEFAULT); 
       digitalWrite(LED_BUILTIN, LOW);   // turn the LED on (HIGH is the voltage level)  
       int i=3;
       while (digitalRead(BUTT_SET) == LOW && i>=0) {
         delay(300);
-        module.setDisplayDigit(0, i);
+        module.setDisplayDigit(0, i, false, myTM16XX_NUMBER_FONT);
         Serial.printf("Reset setting countdown . \n" );
         i--;
       }
@@ -234,8 +235,8 @@ void loop() {
         delay(100);
         ESP.reset();
       }
-      digitalWrite(LED_BUILTIN, HIGH);      // turn the LED on (HIGH is the voltage level)  
+      digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on (HIGH is the voltage level)  
     }
-    delay(500);                             // wait half sec
+    delay(500);                        // wait half sec
 
 }
